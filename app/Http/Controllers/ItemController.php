@@ -63,7 +63,7 @@ class ItemController extends Controller
 //The update function is a PHP function that takes two arguments: a Request object and an id string. The function is used to update an existing Item object with the given id based on the completed property in the Request object.
        if ($existingItem) {
           $existingItem->completed = $request->item['completed'] ? true : false; //if the completed request item property is true the record completed property is set to true else false
-          $existingItem->completed_at = $request->item['completed'] ? Carbon::now() : null;//if completed item is true Carbonnow() sets the current time
+          $existingItem->completed_at = $request->item['completed'] ? Carbon::now() : null;//if completed item is true Carbonnow() sets the current date and time
           $existingItem->save();
           return $existingItem;
         }
