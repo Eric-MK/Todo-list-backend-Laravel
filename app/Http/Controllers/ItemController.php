@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class ItemController extends Controller
 {
@@ -30,7 +31,7 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $newItem = new Item;
-        $newItem->name = $request->name;
+        $newItem->name = $request->item['name'];
         $newItem->save();
 
         return $newItem;
@@ -49,7 +50,8 @@ class ItemController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+
     }
 
     /**
@@ -57,7 +59,17 @@ class ItemController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+       $existingItem = Item::find( $id );
+//The update function is a PHP function that takes two arguments: a Request object and an id string. The function is used to update an existing Item object with the given id based on the completed property in the Request object.
+       if ($existingItem) {
+          $existingItem->completed = $request->item['completed'] ? true : false; //if the completed request item property is true the record completed property is set to true else false
+          $existingItem->completed_at = $request->item['completed'] ? Carbon::now() : null;//if completed item is true Carbonnow() sets the current time
+          $existingItem->save();
+          return $existingItem;
+        }
+
+        return "Item not found. ";
+
     }
 
     /**
