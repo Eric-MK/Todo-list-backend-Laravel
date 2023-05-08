@@ -77,6 +77,14 @@ class ItemController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $existingItem = Item::find($id);
+
+        if ($existingItem) {
+
+            $existingItem->delete();
+            return "Item successfully deleted";
+        }
+
+        return "Item not found.";
     }
 }
