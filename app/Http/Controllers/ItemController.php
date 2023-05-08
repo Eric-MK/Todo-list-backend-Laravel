@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -11,7 +12,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+
+        return Item::orderBy('created_at', 'DESC')->get();//The get method is used to retrieve the items from the database and return them as a collection.
     }
 
     /**
@@ -27,7 +29,11 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newItem = new Item;
+        $newItem->name = $request->name;
+        $newItem->save();
+
+        return $newItem;
     }
 
     /**
